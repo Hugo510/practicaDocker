@@ -13,7 +13,11 @@ COPY . .
 RUN pnpm run build
 
 # ---------- Etapa 2: Nginx ----------
-FROM nginx:1.27-alpine
+FROM nginx:1.27.3-alpine
+
+# Actualizar paquetes de seguridad
+RUN apk upgrade --no-cache
+
 # Copia artefactos estáticos
 COPY --from=build /app/dist /usr/share/nginx/html
 
@@ -23,8 +27,9 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copia template de variables de entorno
 COPY public/env.template.js /usr/share/nginx/html/env.js
 
-# Instalar gettext para envsubst
-RUN apk add --no-cache gettext
+# Instalar gettext para envsubst y actualizar paquetes
+RUN apk add --no-cache gettext && \
+    apk upgrade --no-cache
 
 EXPOSE 80
 CMD sh -c 'envsubst < /usr/share/nginx/html/env.js > /tmp/env.js && mv /tmp/env.js /usr/share/nginx/html/env.js && nginx -g "daemon off;"'
