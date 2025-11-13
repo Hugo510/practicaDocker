@@ -160,10 +160,18 @@ Se ha creado `.github/workflows/docker-publish.yml` que:
 
 Configurar secrets en GitHub:
 
-1. Ve a Settings > Secrets and variables > Actions
-2. Agrega los siguientes secrets:
-   - `DOCKER_USERNAME` - Tu usuario de Docker Hub
-   - `DOCKER_PASSWORD` - Tu token de Docker Hub
+1. **Crear un token de acceso en Docker Hub:**
+   - Ve a https://hub.docker.com/settings/security
+   - Click en "New Access Token"
+   - Dale un nombre descriptivo (ej: "GitHub Actions")
+   - Copia el token (solo se muestra una vez)
+
+2. **Configurar secrets en GitHub:**
+   - Ve a tu repositorio > Settings > Secrets and variables > Actions
+   - Click en "New repository secret"
+   - Agrega los siguientes secrets:
+     - `DOCKER_USERNAME` - Tu usuario de Docker Hub
+     - `DOCKER_TOKEN` - El token que generaste en el paso 1
 
 ### Uso:
 
