@@ -1,0 +1,17 @@
+# Imagen base ligera con Node para CRA
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Instala dependencias primero para aprovechar cache de capas
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
+RUN npm install -g pnpm && pnpm install
+
+# Copia el resto del código (será reemplazado por volumen en compose)
+COPY . .
+
+# CRA usa puerto 3000
+EXPOSE 3000
+
+CMD ["pnpm", "run", "start"]

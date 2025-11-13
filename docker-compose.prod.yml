@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://backend:3001
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    environment:
+      - API_URL=http://backend:3001
+
+  backend:
+    image: vimagick/json-server
+    ports:
+      - "3001:80"
+    volumes:
+      - ./db.json:/data/db.json
+    command: -H 0.0.0.0 -p 80 --watch /data/db.json
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

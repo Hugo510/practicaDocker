@@ -1,0 +1,33 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Primer Post",
+      "content": "Este es el contenido del primer post"
+    },
+    {
+      "id": 2,
+      "title": "Segundo Post",
+      "content": "Este es el contenido del segundo post"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Usuario Demo",
+      "email": "demo@example.com"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "postId": 1,
+      "body": "Excelente post"
+    },
+    {
+      "id": 2,
+      "postId": 1,
+      "body": "Muy interesante"
+    }
+  ]
+}
