@@ -1,0 +1,17 @@
+# Imagen base ligera con Node
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Instala dependencias primero para aprovechar cache de capas
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
+RUN npm install -g pnpm && pnpm install
+
+# Copia el resto del código (será reemplazado por volumen en compose)
+COPY . .
+
+# Vite usa 5173
+EXPOSE 5173
+
+CMD ["pnpm", "run", "dev", "--host"]
