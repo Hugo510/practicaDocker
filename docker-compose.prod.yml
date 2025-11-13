@@ -17,12 +17,11 @@ services:
       - API_URL=http://backend:3001
 
   backend:
-    image: vimagick/json-server
+    image: clue/json-server
     ports:
       - "3001:80"
     volumes:
-      - ./db.json:/data/db.json
-    command: -H 0.0.0.0 -p 80 --watch /data/db.json
+      - ./db.json:/data/db.json:ro
     networks:
       - app-network
 
